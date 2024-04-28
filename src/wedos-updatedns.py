@@ -47,7 +47,8 @@ import datetime
 import hashlib
 import json
 import socket
-
+import random
+import string
 import requests
 
 import urllib.request
@@ -124,7 +125,7 @@ def get_current_device_public_ip():
     return ident_me_find_ip
 
 def compare_ip_of_dns_record_and_local_device_and_make_changes(sub=SUBDOMAIN, domain=DOMAIN):
-    testadr = fqdn(sub, domain)
+    testadr = fqdn(''.join([random.choice(string.ascii_lowercase) for _ in range(4)]) if sub == '*' else sub, domain)
 
     dns_ip = socket.gethostbyname(testadr)
     local_device_ip = get_current_device_public_ip()
